@@ -1,0 +1,30 @@
+/* importing Bootstrap CSS from CDN */
+@import	url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
+
+/* importing Raleway and Lato fonts from GoogleFonts */
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300italic,300);
+
+/* importing Font Awesome from CDN */
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+body {
+    font-family: Lato, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    /*background-color: #f0fff4;
+    background-image: url(../img/symphony.png);
+    background-repeat: repeat;*/
+    padding: 1em;
+}
+
+#game-canvas {
+    border: 1px solid #333;
+   /* fill: #FFFFFF; */
+}
+
+@media(min-width: 768px) {
+    body {
+        font-size: 20px;
+    }
+}

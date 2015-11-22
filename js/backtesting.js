@@ -23,13 +23,26 @@ document.addEventListener('DOMContentLoaded', function() {
     function newGameState() {
         //creates new object to return
         return {
-            //create bucky object
+            //create yet another object for object property
+            //ball: {
+            //    //start coordinates
+            //    left: 50,
+            //    top: 50,
+            //
+            //    //size
+            //    width: 50,
+            //    height: 50,
+            //
+            //    //direction, velocity
+            //    vectorX: 1,
+            //    vectorY: 1,
+            //    velocity: 3
+            //},
             bucky: {
                 left: 100,
                 top: 100,
                 width: 50,
-                height: 50,
-                img: new Image()
+                height: 50
             },
             blocks: blocks,
             lastTimestamp: performance.now()
@@ -42,9 +55,28 @@ document.addEventListener('DOMContentLoaded', function() {
         //get rekt (rect)
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        ////reference
+        //var ball = gameState.ball;
+        //
+        ////begins the path
+        //ctx.beginPath();
+        //
+        ////draws the arc
+        ////takes in center coordinates of circle
+        //ctx.arc(ball.left + (ball.width / 2),
+        //    ball.top + (ball.height / 2),
+        //    ball.width / 2, 0, 2 * Math.PI);
+        //
+        ////fills in the circle
+        //ctx.fillStyle = "#DA4453";
+        //ctx.fill();
+
+
         var bucky = gameState.bucky;
-        bucky.img.src ="img/buckydown.png";
-        ctx.drawImage(bucky.img, bucky.left, bucky.top, bucky.width, bucky.height);
+        //ctx.fillRect(bucky.left, bucky.top, bucky.width, bucky.height);
+        var img = new Image();
+        img.src ="img/buckydown.png";
+        ctx.drawImage(img, bucky.left, bucky.top, bucky.width, bucky.height);
 
 
         //shows me coordinates
@@ -80,59 +112,55 @@ document.addEventListener('DOMContentLoaded', function() {
     //add movement by arrow keys
     document.addEventListener("keydown", function moveChar(evt) {
         //var ball = gameState.ball;
-        var bucky = gameState.bucky;
+        var ball = gameState.bucky;
         var movement = 10;
         switch(evt.keyCode) {
             //WSAD (up,down,left,right) --> (87, 83, 65, 68)
             case 37:
                 // left key pressed
                 var img = new Image();
-                bucky.img.src ="img/buckyleft.png";
-                bucky.left -= movement;
+                img.src ="img/buckyleft.png";
+                ball.left -= movement;
 
                 //dont hit walls
-                if (bucky.left + bucky.width <= bucky.width) {
-                    bucky.left = 0;
+                if (ball.left + ball.width <= ball.width) {
+                    ball.left = 0;
                 }
                 break;
 
             case 38:
                 // up key pressed
-                bucky.top -= movement;
-                bucky.img.src ="img/buckyup.png";
+                ball.top -= movement;
 
                 //dont hit walls
-                if (bucky.top <= 0) {
-                    bucky.top = 0;
+                if (ball.top <= 0) {
+                    ball.top = 0;
                 }
                 break;
 
             case 39:
                 // right key pressed
-                bucky.left += movement;
-                bucky.img.src ="img/buckyright.png";
+                ball.left += movement;
 
                 //dont hit walls
-                if (bucky.left + bucky.width >= canvas.width) {
-                    bucky.left = canvas.width - bucky.width;
+                if (ball.left + ball.width >= canvas.width) {
+                    ball.left = canvas.width - ball.width;
                 }
                 break;
             case 40:
                 // down key pressed
-                bucky.top += movement;
-                bucky.img.src ="img/buckydown.png";
+                ball.top += movement;
 
                 //dont hit walls
-                if (bucky.top + bucky.height >= canvas.height) {
-                    bucky.top = canvas.height - bucky.height;
+                if (ball.top + ball.height >= canvas.height) {
+                    ball.top = canvas.height - ball.height;
                 }
 
                 break;
 
             case 32:
                 //space bar pressed
-                //do an animation?
-                //meow?
+                //do an animation
                 break;
         }
     });

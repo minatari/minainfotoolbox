@@ -9,6 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
     //current game state
     var gameState;
 
+    var blocks = [];
+    for (var i = 0; i < 10; i++) {
+        blocks.push ({
+            left: Math.random() * canvas.width,
+            top: Math.random() * canvas.height,
+            width: Math.random() * 100,
+            height: Math.random() * 100
+        })
+    }
+
     //create a new game state object and return it
     function newGameState() {
         //creates new object to return
@@ -28,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 vectorY: 1,
                 velocity: 3
             },
+            blocks: blocks,
             lastTimestamp: performance.now()
         };
     } //newGameState()
@@ -64,6 +75,17 @@ document.addEventListener('DOMContentLoaded', function() {
         for(idx = 0; idx < canvas.height + 20; idx += 20) {
             ctx.fillText(idx, 0, idx);
         }
+
+        for (var block in blocks) {
+            ctx.fill
+        }
+        //for (var i = 0; i < 30; i++) {
+        //    var x = Math.random() * canvas.width;
+        //    var y = Math.random() * canvas.height;
+        //    var width = Math.random() * 100;
+        //    var height = Math.random() * 100;
+        //    ctx(x, y, width, height);
+        //}
     } //render()
 
     //advance the animation and redraw

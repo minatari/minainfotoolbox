@@ -1,4 +1,4 @@
-
+//js for drag through blockers cat game
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buckyD.render.sprite.xScale = 2;
         buckyD.render.sprite.yScale = 2;
 
-
+        //create blocking rectangles
         var block1 = Bodies.rectangle(610, 250, 200, 20, {
             isStatic: true,
             angle: Math.PI * 0.06,
@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        //create basket
         var basketleft = Bodies.rectangle(450, 460, 20, 100, {
             isStatic: true
         });
@@ -135,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var baskettop = Bodies.rectangle(375, 410, 150, 20, {
             isStatic: true
         });
-
 
 
         // add all of the bodies to the world

@@ -1,3 +1,6 @@
+//TODO: default bucky img?
+//TODO: don't hit the blocks
+
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
@@ -10,13 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var gameState;
 
     var blocks = [];
-    for (var i = 0; i < 10; i++) {
+    var numOfBlocks = 1; //Math.random() * 10;
+    for (var i = 0; i < numOfBlocks; i++) {
+        //fix math
         blocks.push ({
-            left: Math.random() * canvas.width,
-            top: Math.random() * canvas.height,
-            width: Math.random() * 100,
-            height: Math.random() * 100
-        })
+            left: 70 + (Math.random() * 350), //(canvas.width)),
+            top: 70 + (Math.random() * 350), //(canvas.height)),
+            width: 70, //Math.random() * 100,
+            height: 20 //Math.random() * 100
+        } )
     }
 
     //create a new game state object and return it
@@ -25,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return {
             //create bucky object
             bucky: {
-                left: 100,
-                top: 100,
+                left: 50,
+                top: 50,
                 width: 50,
                 height: 50,
                 img: new Image()
@@ -43,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         var bucky = gameState.bucky;
-        bucky.img.src ="img/buckydown.png";
         ctx.drawImage(bucky.img, bucky.left, bucky.top, bucky.width, bucky.height);
 
 
@@ -58,90 +62,93 @@ document.addEventListener('DOMContentLoaded', function() {
             ctx.fillText(idx, 0, idx);
         }
 
-        //for (var block in blocks) {
-        //    ctx.fill
-        //}
-
-        //for (var i = 0; i < 30; i++) {
-        //    var x = Math.random() * canvas.width;
-        //    var y = Math.random() * canvas.height;
-        //    var width = Math.random() * 100;
-        //    var height = Math.random() * 100;
-        //    ctx(x, y, width, height);
-        //}
+        //draw roadblocks
+        var blocks = gameState.blocks;
+        for (var i = 0; i < blocks.length; i++) {
+            var block = blocks[i];
+            ctx.fillRect(block.left, block.top, block.width, block.height);
+        }
     } //render()
 
     //advance the animation and redraw
     function animate(timestamp) {
         render();
         requestAnimationFrame(animate);
-    }
+    } //animate()
 
     //add movement by arrow keys
     document.addEventListener("keydown", function moveChar(evt) {
-        //var ball = gameState.ball;
         var bucky = gameState.bucky;
+        var blocks = gameState.blocks;
         var movement = 10;
-        switch(evt.keyCode) {
-            //WSAD (up,down,left,right) --> (87, 83, 65, 68)
-            case 37:
-                // left key pressed
-                var img = new Image();
-                bucky.img.src ="img/buckyleft.png";
-                bucky.left -= movement;
+        //if top left corner of bucky is not at block
+        if (bucky.left + bucky.width <= blocks.left) {
+            //if bottom of bucky does is not at block
+            if (bucky.top + bucky.height >= blocks.height
+                //if top of bucky is not at block
+                && bucky.top <= blocks.top + blocks.height) {
+               // move
+                switch (evt.keyCode) {
+                    //WSAD (up,down,left,right) --> (87, 83, 65, 68)
+                    case 37:
+                        // left key pressed
+                        var img = new Image();
+                        bucky.img.src = "img/buckyleft.png";
+                        bucky.left -= movement;
+                        //check position to al
+                        //dont hit walls
+                        if (bucky.left + bucky.width <= bucky.width) {
+                            bucky.left = 0;
+                        }
+                        break;
 
-                //dont hit walls
-                if (bucky.left + bucky.width <= bucky.width) {
-                    bucky.left = 0;
-                }
-                break;
+                    case 38:
+                        // up key pressed
+                        bucky.top -= movement;
+                        bucky.img.src = "img/buckyup.png";
 
-            case 38:
-                // up key pressed
-                bucky.top -= movement;
-                bucky.img.src ="img/buckyup.png";
+                        //dont hit walls
+                        if (bucky.top <= 0) {
+                            bucky.top = 0;
+                        }
+                        break;
 
-                //dont hit walls
-                if (bucky.top <= 0) {
-                    bucky.top = 0;
-                }
-                break;
+                    case 39:
+                        // right key pressed
+                        bucky.left += movement;
+                        bucky.img.src = "img/buckyright.png";
 
-            case 39:
-                // right key pressed
-                bucky.left += movement;
-                bucky.img.src ="img/buckyright.png";
+                        //dont hit walls
+                        if (bucky.left + bucky.width >= canvas.width) {
+                            bucky.left = canvas.width - bucky.width;
+                        }
+                        break;
+                    case 40:
+                        // down key pressed
+                        bucky.top += movement;
+                        bucky.img.src = "img/buckydown.png";
 
-                //dont hit walls
-                if (bucky.left + bucky.width >= canvas.width) {
-                    bucky.left = canvas.width - bucky.width;
-                }
-                break;
-            case 40:
-                // down key pressed
-                bucky.top += movement;
-                bucky.img.src ="img/buckydown.png";
+                        //dont hit walls
+                        if (bucky.top + bucky.height >= canvas.height) {
+                            bucky.top = canvas.height - bucky.height;
+                        }
 
-                //dont hit walls
-                if (bucky.top + bucky.height >= canvas.height) {
-                    bucky.top = canvas.height - bucky.height;
-                }
+                        break;
 
-                break;
+                    case 32:
+                        //space bar pressed
+                        //do an animation?
+                        //meow?
+                        break;
+            //    }
+            //}
+        } //else
 
-            case 32:
-                //space bar pressed
-                //do an animation?
-                //meow?
-                break;
-        }
-    });
+    }); //moveChar()
 
     //create a new game state
     gameState = newGameState();
 
-    //ask browser to animate ask quickly as possible
-    //global function
+    //ask browser to animate ask quickly as possible (global function)
     requestAnimationFrame(animate);
-
 });

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         var bucky = gameState.bucky;
-        ctx.drawImage(bucky.img, 50, 50, 50, 50);
+        ctx.drawImage('buckydown.png', bucky.left, bucky.top, bucky.width, bucky.height);
 
 
         //shows me coordinates

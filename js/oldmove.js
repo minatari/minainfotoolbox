@@ -1,6 +1,3 @@
-//TODO: default bucky img?
-//TODO: don't hit the blocks
-
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 

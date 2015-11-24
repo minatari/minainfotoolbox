@@ -82,12 +82,12 @@ document.addEventListener('DOMContentLoaded', function() {
         var blocks = gameState.blocks;
         var movement = 10;
         //if top left corner of bucky is not at block
-        if (bucky.left + bucky.width <= blocks.left) {
-            //if bottom of bucky does is not at block
-            if (bucky.top + bucky.height >= blocks.height
-                //if top of bucky is not at block
-                && bucky.top <= blocks.top + blocks.height) {
-               // move
+        //if (bucky.left + bucky.width <= blocks.left) {
+        //    //if bottom of bucky does is not at block
+        //    if (bucky.top + bucky.height >= blocks.height
+        //        //if top of bucky is not at block
+        //        && bucky.top <= blocks.top + blocks.height) {
+        //       // move
                 switch (evt.keyCode) {
                     //WSAD (up,down,left,right) --> (87, 83, 65, 68)
                     case 37:
